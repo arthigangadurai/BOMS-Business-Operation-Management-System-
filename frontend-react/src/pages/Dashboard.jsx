@@ -1,3 +1,4 @@
+import api from "../services/api";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import Card from "../components/Card";
@@ -6,7 +7,6 @@ import EmployeeChart from "../charts/EmployeeChart";
 import DepartmentPie from "../charts/DepartmentPie";
 import ProjectBarChart from "../charts/ProjectBarChart";
 import { useEffect, useState } from "react";
-import api from "../services/api";
 import { Link } from "react-router-dom";
 function Dashboard() {
   const [stats, setStats] = useState({
@@ -22,10 +22,7 @@ useEffect(() => {
 
 const loadStats = async () => {
   try {
-    const res = await axios.get(
-      "https://boms-business-operation-management-system.onrender.com/dashboard/stats"
-    );
-
+    const res = await api.get("/dashboard/stats");
     console.log("Dashboard Stats:", res.data);
     setStats(res.data);
   } catch (err) {
