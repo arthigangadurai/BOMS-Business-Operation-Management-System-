@@ -6,12 +6,14 @@ import EmployeeChart from "../charts/EmployeeChart";
 import DepartmentPie from "../charts/DepartmentPie";
 import ProjectBarChart from "../charts/ProjectBarChart";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import { Link } from "react-router-dom";
 function Dashboard() {
-   const [stats, setStats] = useState({
-  total_users: 0,
-  total_projects: 0,
+  const [stats, setStats] = useState({
+  employees: 0,
+  projects: 0,
+  revenue: 0,
+  reports: 0,
 });
 
 useEffect(() => {
@@ -20,7 +22,10 @@ useEffect(() => {
 
 const loadStats = async () => {
   try {
-    const res = await axios.get("http://127.0.0.1:8000/dashboard/stats");
+    const res = await axios.get(
+      "https://boms-business-operation-management-system.onrender.com/dashboard/stats"
+    );
+
     setStats(res.data);
   } catch (err) {
     console.log(err);
