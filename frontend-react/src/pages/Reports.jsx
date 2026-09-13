@@ -1,3 +1,4 @@
+import api from "../services/api";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -19,22 +20,18 @@ function Reports() {
     loadReports();
   }, []);
 
-  const loadReports = async () => {
-    try {
-      const summaryRes = await axios.get(
-        "http://127.0.0.1:8000/reports/summary"
-      );
+ const loadReports = async () => {
+  try {
+    const summaryRes = await api.get("/reports/summary");
 
-      const projectRes = await axios.get(
-        "http://127.0.0.1:8000/reports/projects"
-      );
+    const projectRes = await api.get("/reports/projects");
 
-      setSummary(summaryRes.data);
-      setProjects(projectRes.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    setSummary(summaryRes.data);
+    setProjects(projectRes.data);
+  } catch (err) {
+    console.log("Reports Error:", err);
+  }
+};
 
   return (
     <>
