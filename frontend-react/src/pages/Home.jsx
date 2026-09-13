@@ -1,7 +1,37 @@
 import { Link } from "react-router-dom";
 import image from "../assets/image.png";
+import api from "../services/api";
+import { useEffect, useState } from "react";
 
-function Home() {
+
+function Home()
+ {
+  const [stats, setStats] = useState({
+    employees: 0,
+    projects: 0,
+    completed: 0,
+    revenue: 0,
+  });
+
+  useEffect(() => {
+    loadStats();
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      const dashboardRes = await api.get("/dashboard/stats");
+      const reportsRes = await api.get("/reports/summary");
+
+      setStats({
+        employees: dashboardRes.data.employees,
+        projects: dashboardRes.data.projects,
+        completed: reportsRes.data.completed,
+        revenue: dashboardRes.data.revenue,
+      });
+    } catch (err) {
+      console.log("Home Stats Error:", err);
+    }
+  };
   return (
     <div
       style={{
@@ -82,19 +112,19 @@ function Home() {
 
             <div style={cardRow}>
               <div style={miniCard}>
-                <h2>12</h2>
+                <h2>{stats.employees}</h2>
                 Employees
               </div>
 
               <div style={miniCard}>
-                <h2>3</h2>
+                <h2>{stats.projects}</h2>
                 Projects
               </div>
             </div>
 
             <div style={cardRow}>
               <div style={miniCard}>
-                <h2>2</h2>
+                <h2>{stats.completed}</h2>
                 Completed
               </div>
 
