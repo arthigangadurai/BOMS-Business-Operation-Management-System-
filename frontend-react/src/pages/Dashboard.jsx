@@ -26,9 +26,10 @@ const loadStats = async () => {
       "https://boms-business-operation-management-system.onrender.com/dashboard/stats"
     );
 
+    console.log("Dashboard Stats:", res.data);
     setStats(res.data);
   } catch (err) {
-    console.log(err);
+    console.log("Dashboard Error:", err);
   }
 };
   return (
@@ -118,10 +119,10 @@ const loadStats = async () => {
     gap: "25px",
   }}
 >
-  <Card title="Employees" value={stats.employees} />
-  <Card title="Projects" value={stats.projects} />
-  <Card title="Revenue" value={`₹${stats.revenue}`} />
-  <Card title="Reports" value={stats.reports} />
+<Card title="Employees" value={stats.employees} />
+<Card title="Projects" value={stats.projects} />
+<Card title="Revenue" value={`₹${stats.revenue}`} />
+<Card title="Reports" value={stats.reports} />
 </div>
 
 {/* Charts */}
